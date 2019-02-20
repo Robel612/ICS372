@@ -1,5 +1,9 @@
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 
 public class SiteReading {
 
@@ -89,10 +93,11 @@ public class SiteReading {
 		this.rdgVal = rdgVal;
 	}
 
-	/**Getter method for the reading date
-	 * @return String the reading date
-	 */
-	public String getReadingDate() {
+	/*Getter for reading date
+    *@return String the rdgDate
+    */
+	public String getReadingDate() throws ParseException {
+		unixToDate(rdgDate);
 		return rdgDate;
 	}
 
@@ -101,6 +106,15 @@ public class SiteReading {
 	 */
 	public void setReadingDate(String rdgDate) {
 		this.rdgDate = rdgDate;
+	}
+	
+	//Updates Unix time to a readable format
+	public void unixToDate(String readableDate) throws ParseException {    
+	    long timestamp = Long.parseLong(readableDate);
+
+	    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY", Locale.US);
+	    rdgDate = sdf.format(timestamp);
+
 	}
 	
 	@Override
